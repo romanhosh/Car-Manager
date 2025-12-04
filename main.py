@@ -5,9 +5,7 @@ import os
 car_collection = []
 
 
-# -----------------------------
 # Load cars from CSV
-# -----------------------------
 def load_cars():
     if not os.path.exists("car_collection.csv"):
         print("No saved data found. Starting with an empty collection.\n")
@@ -34,3 +32,21 @@ def load_cars():
 
     except Exception as e:
         print(f"Error loading file: {e}\n")
+
+# Save cars to CSV
+def save_cars():
+    try:
+        with open("car_collection.csv", "w", newline="") as file:
+            writer = csv.writer(file)
+            writer.writerow(["Make", "Model", "Year", "Price"])
+
+            for car in car_collection:
+                writer.writerow([car["make"], car["model"], car["year"], car["price"]])
+
+        print("Collection saved successfully!\n")
+
+    except Exception as e:
+        print(f"Error saving file: {e}\n")
+
+# Display all cars
+
