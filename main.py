@@ -50,3 +50,38 @@ def save_cars():
 
 # Display all cars
 
+
+def view_all_cars():
+    if not car_collection:
+        print("Your collection is empty.\n")
+        return
+
+    print("\n--- Your Car Collection ---")
+    for i, car in enumerate(car_collection, 1):
+        print(f"{i}. {car['year']} {car['make']} {car['model']} - ${car['price']:,.2f}")
+    print()
+
+
+
+# Add a new car
+
+def add_car():
+    print("\n--- Add New Car ---")
+
+    make = input("Enter make: ").strip()
+    model = input("Enter model: ").strip()
+
+    year = get_valid_int("Enter year: ")
+    price = get_valid_float("Enter price: ")
+
+    new_car = {"make": make, "model": model, "year": year, "price": price}
+    car_collection.append(new_car)
+
+    print(f"\n{year} {make} {model} added!\n")
+
+
+
+# Remove a car
+
+
+
