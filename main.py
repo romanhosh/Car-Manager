@@ -1,6 +1,29 @@
 import csv
 import os
 
+# Error messages for invalid interger and float inputs
+def get_validated_integer(prompt):
+    while True:
+        try:
+            value = int(input(prompt))
+            return value
+        except ValueError:
+            print("Invalid input. Please enter a number.")
+
+
+def get_validated_float(prompt):
+    while True:
+        try:
+            value = float(input(prompt))
+            if value < 0:
+                print("Price cannot be negative.")
+                continue
+            return value
+        except ValueError:
+            print("Invalid input. Please enter a number.")
+
+
+
 # list to store car dictionaries
 car_collection = []
 
@@ -25,7 +48,7 @@ def load_cars():
                     }
                     car_collection.append(car)
                 except (ValueError, KeyError):
-                    # Skip malformed rows
+                
                     continue
 
         print(f"Loaded {len(car_collection)} cars from file.\n")
@@ -44,7 +67,7 @@ def save_cars():
                 writer.writerow([car["make"], car["model"], car["year"], car["price"]])
 
         print("Collection saved successfully!\n")
-
+# error handling
     except Exception as e:
         print(f"Error saving file: {e}\n")
 
