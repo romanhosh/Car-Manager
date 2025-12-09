@@ -83,5 +83,21 @@ def add_car():
 
 # Remove a car
 
+def remove_car():
+    if not car_collection:
+        print("Collection is empty.\n")
+        return
+
+    view_all_cars()
+
+    choice = get_valid_int("Enter number of car to remove: ")
+
+    if 1 <= choice <= len(car_collection):
+        removed = car_collection.pop(choice - 1)
+        print(f"Removed {removed['year']} {removed['make']} {removed['model']}\n")
+    else:
+        print("Invalid selection.\n")
+
+
 
 
