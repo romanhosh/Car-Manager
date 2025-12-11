@@ -121,6 +121,39 @@ def remove_car():
     else:
         print("Invalid selection.\n")
 
+# Sort cars
+
+def sort_cars():
+    if not car_collection:
+        print("Collection is empty.\n")
+        return
+
+    print("\n--- Sort Cars ---")
+    print("1. Price Low → High")
+    print("2. Price High → Low")
+    print("3. Year Oldest → Newest")
+    print("4. Year Newest → Oldest")
+
+    choice = input("Enter choice: ").strip()
+
+    if choice == "1":
+        sorted_list = sorted(car_collection, key=lambda c: c["price"])
+    elif choice == "2":
+        sorted_list = sorted(car_collection, key=lambda c: c["price"], reverse=True)
+    elif choice == "3":
+        sorted_list = sorted(car_collection, key=lambda c: c["year"])
+    elif choice == "4":
+        sorted_list = sorted(car_collection, key=lambda c: c["year"], reverse=True)
+    else:
+        print("Invalid choice.\n")
+        return
+
+    print()
+    for i, car in enumerate(sorted_list, 1):
+        print(f"{i}. {car['year']} {car['make']} {car['model']} - ${car['price']:,.2f}")
+    print()
+
+
 
 
 
