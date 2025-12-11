@@ -1,29 +1,6 @@
 import csv
 import os
 
-# Error messages for invalid interger and float inputs
-def get_validated_integer(prompt):
-    while True:
-        try:
-            value = int(input(prompt))
-            return value
-        except ValueError:
-            print("Invalid input. Please enter a number.")
-
-
-def get_validated_float(prompt):
-    while True:
-        try:
-            value = float(input(prompt))
-            if value < 0:
-                print("Price cannot be negative.")
-                continue
-            return value
-        except ValueError:
-            print("Invalid input. Please enter a number.")
-
-
-
 # list to store car dictionaries
 car_collection = []
 
@@ -48,7 +25,7 @@ def load_cars():
                     }
                     car_collection.append(car)
                 except (ValueError, KeyError):
-                
+                    # Skip malformed rows
                     continue
 
         print(f"Loaded {len(car_collection)} cars from file.\n")
@@ -67,7 +44,7 @@ def save_cars():
                 writer.writerow([car["make"], car["model"], car["year"], car["price"]])
 
         print("Collection saved successfully!\n")
-# error handling
+
     except Exception as e:
         print(f"Error saving file: {e}\n")
 
@@ -121,39 +98,48 @@ def remove_car():
     else:
         print("Invalid selection.\n")
 
-# Sort cars
 
-def sort_cars():
+# Show statistics
+
+def show_statistics():
     if not car_collection:
         print("Collection is empty.\n")
         return
 
-    print("\n--- Sort Cars ---")
-    print("1. Price Low → High")
-    print("2. Price High → Low")
-    print("3. Year Oldest → Newest")
-    print("4. Year Newest → Oldest")
+    total_cars = len(car_collection)
+    total_value = sum(car["price"] for car in car_collection)
+    avg_price = total_value / total_cars
 
-    choice = input("Enter choice: ").strip()
+    most_expensive = max(car_collection, key=lambda c: c["price"])
+    cheapest = min(car_collection, key=lambda c: c["price"])
 
-    if choice == "1":
-        sorted_list = sorted(car_collection, key=lambda c: c["price"])
-    elif choice == "2":
-        sorted_list = sorted(car_collection, key=lambda c: c["price"], reverse=True)
-    elif choice == "3":
-        sorted_list = sorted(car_collection, key=lambda c: c["year"])
-    elif choice == "4":
-        sorted_list = sorted(car_collection, key=lambda c: c["year"], reverse=True)
-    else:
-        print("Invalid choice.\n")
-        return
+    print("\n--- Statistics ---")
+    print(f"Total Cars: {total_cars}")
+    print(f"Total Value: ${total_value:,.2f}")
+    print(f"Average Price: ${avg_price:,.2f}\n")
 
-    print()
-    for i, car in enumerate(sorted_list, 1):
-        print(f"{i}. {car['year']} {car['make']} {car['model']} - ${car['price']:,.2f}")
-    print()
+    print("Most Expensive:")
+    print(f"{most_expensive['year']} {most_expensive['make']} {most_expensive['model']} - ${most_expensive['price']:,.2f}\n")
+
+    print("Cheapest:")
+    print(f"{cheapest['year']} {cheapest['make']} {cheapest['model']} - ${cheapest['price']:,.2f}\n")
 
 
+# Helpers
 
+def get_valid_int(prompt):
+    while True:
+        try:
+            return int(input(prompt))
+        except ValueError:
+            print("Please enter a valid integer.")
+
+
+def get_valid_float(prompt):
+    while True:
+        try:
+            return float(input(prompt))
+        except ValueError:
+            print("Please enter a valid number.")
 
 
