@@ -143,3 +143,41 @@ def get_valid_float(prompt):
             print("Please enter a valid number.")
 
 
+# Main Menu
+
+def main_menu():
+    load_cars()
+
+    while True:
+        print("=== Car Collection Manager ===")
+        print("1. View All Cars")
+        print("2. Add Car")
+        print("3. Remove Car")
+        print("4. Sort Cars")
+        print("5. Statistics")
+        print("6. Save and Exit")
+
+        choice = input("Enter choice: ").strip()
+
+        if choice == "1":
+            view_all_cars()
+        elif choice == "2":
+            add_car()
+        elif choice == "3":
+            remove_car()
+        elif choice == "4":
+            sort_cars()
+        elif choice == "5":
+            show_statistics()
+        elif choice == "6":
+            save_cars()
+            print("Goodbye!")
+            break
+        else:
+            print("Invalid choice.\n")
+
+
+# Entry point
+if __name__ == "__main__":
+    main_menu()
+
